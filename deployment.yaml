@@ -13,7 +13,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - name: nginx-1
+      - name: nginx
         image: cithit/cit225:latest
         ports:
         - containerPort: 80  # Expose NGINX on port 80
@@ -26,7 +26,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx-1
+  name: nginx
 spec:
   rules: 
   - host: devops9.cit.regionals.miamioh.edu
@@ -53,7 +53,7 @@ metadata:
   name: nginx-internal-service
 spec:
   selector:
-    app: nginx-1
+    app: nginx
   ports:
   - protocol: TCP
     port: 80
