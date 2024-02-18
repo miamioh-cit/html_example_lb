@@ -17,10 +17,6 @@ spec:
         image: cithit/cit225:latest
         ports:
         - containerPort: 80  # Expose NGINX on port 80
-      - name: nginx-2
-        image: cithit/cit225:latest
-        ports:
-        - containerPort: 8080  # Expose NGINX on port 8080
         
 ---
 apiVersion: networking.k8s.io/v1
@@ -39,13 +35,6 @@ spec:
             name: nginx-internal-service
             port:
               number: 80
-      - path: /test
-        pathType: ImplementationSpecific
-        backend: 
-          service:
-            name: test-internal-service
-            port:
-              number: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -58,15 +47,3 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: test-internal-service
-spec:
-  selector:
-    app: nginx-2
-  ports:
-  - protocol: TCP
-    port: 8080
-    targetPort: 8080
